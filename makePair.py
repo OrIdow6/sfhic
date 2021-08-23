@@ -57,7 +57,7 @@ def build_request():
 	if args.add_default_headers:
 		# Default headers, largely taken from the Firefox I'm running
 		default_headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
-		default_headers["Accept-Encoding"] = "gzip, deflate, br"
+		default_headers["Accept-Encoding"] = ", ".join(list(random.sample(["gzip", "deflate", "br"], k=3)))
 		default_headers["Accept-Language"] = "en-US,en;q=0.5,de;q=0.3" # How ArchiveTeam operates
 		default_headers["Cache-Control"] = "max-age=0"
 		default_headers["Connection"] = "keep-alive"

@@ -1,9 +1,26 @@
 HTTP/1.1 200 OK
 Connection: close
-Content-Length: 8946
-Content-Type: text/plain; charset=utf-8
+Content-Length: 9790
+Content-Type: text/html; encoding=utf-8
 
-**! 80092000201101
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<meta name="generator" content="LibreOffice 7.0.4.2 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="00:00:00"/>
+	<style type="text/css">
+		@page { size: 8.5in 11in; margin: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		pre { background: transparent }
+		pre.western { font-family: "Liberation Mono", monospace; font-size: 10pt }
+		pre.cjk { font-family: "Noto Sans Mono CJK SC", monospace; font-size: 10pt }
+		pre.ctl { font-family: "Liberation Mono", monospace; font-size: 10pt }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr"><pre class="western">**! 80092000201101
 078800 V.Smile\084080 Wall-E Save the World\info.xml
 078800 V.Smile\084080 Wall-E Save the World\info.xml
 078800
@@ -40,7 +57,7 @@ lez
 pee
 pip
 pox
-s&m
+s&amp;m
 sex
 sod
 std
@@ -1041,4 +1058,6 @@ national self-determination
 national liberation movement
 subversion and anti-subversion
 
-Taken from https://hackmii.com/2010/04/bad-words/
+Taken from https://hackmii.com/2010/04/bad-words/</pre>
+</body>
+</html>
