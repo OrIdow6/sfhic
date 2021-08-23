@@ -37,27 +37,30 @@ def make_pairs(req_dir=Path("requests"), resp_dir=Path("responses")):
 	requests = dir_to_dict(req_dir) # name -> content
 	responses = dir_to_dict(resp_dir) # name -> content
 	
-	if diff := requests.keys() - responses.keys() > set():
+	
+	if (diff := requests.keys() - responses.keys()) > set():
 		raise Exception("Exist in requests but not responses:", diff)
 	
-	if diff := responses.keys() - requests.keys() > set():
+	if (diff := responses.keys() - requests.keys()) > set():
 		raise Exception("Exist in responses but not requests:", diff)
 	
 	to_ret = {}
+	names = {}
 	for name in requests.keys():
 		to_ret[requests[name]] = responses[name]
+		names[requests[name]] = name
 	
-	return to_ret
+	return to_ret, names
 
 
-req_resp_pairs = make_pairs() # Dict from binary request content to binary response content
+req_resp_pairs, request_names = make_pairs() # Dict from binary request content to binary response content; dict from binary request content to filename
 
 
-# Take a dict of req/resp pairs, and generate the encoding of a req -> hash(resp) that can be sent to a client.
+# Take a dict of req/resp pairs, and of req->filename, and generate the encoding of a req -> hash(resp) that can be sent to a client, ordered by filename.
 @cache
-def make_expectation_bundle(pairs=req_resp_pairs):
+def make_expectation_bundle(pairs=req_resp_pairs, names=request_names):
 	overall = []
-	for req, resp in pairs.items():
+	for req, resp in sorted(pairs.items(), key=lambda p: names[p[0]]):
 		overall.append({"request": base64.b64encode(req).decode("utf-8"),
 				  "resp_hash": hashlib.sha1(resp).hexdigest()})
 	return gzip.compress(json.dumps(overall).encode("utf-8"))
