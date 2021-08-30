@@ -1,3 +1,6 @@
+Static File HTTP Integrity Checker
+For potential use in project checkIP()s, specifically #//
+
 Current arrangement:
 
 There is a predefined set of (request, response) pairs, to be found in requests/ and responses/, where the halves of each pair have the same name. Execution is as follows:
