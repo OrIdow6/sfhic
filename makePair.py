@@ -46,7 +46,7 @@ def build_request():
 	else:
 		assert args.random_path
 				
-		path = "/" + random_string(random.randint(5, 16))
+		path = "/" + random_string(random.randint(10, 20))
 		# Add on some GET params too
 		if args.include_query:
 			path += "?" + "&".join((random_string(random.randint(5, 16)) + "=" + random_string(random.randint(5, 16)) for _ in range(random.randint(1, 4))))
