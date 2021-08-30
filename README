@@ -1,0 +1,18 @@
+Current arrangement:
+
+There is a predefined set of (request, response) pairs, to be found in requests/ and responses/, where the halves of each pair have the same name. Execution is as follows:
+
+Client sends the server GET /outline, which returns an HTTP response, whose body is a gzipped json, consisting of an array of entries, one for each pair:
+{"request": "base64 encoding the bytes of the request", "resp_hash": "sha1 of the response body the server intends to send back, lowercase hex"}
+
+In the order in which it received them, for each pair, the client:
+	opens a TCP connection to the server and port,
+	sends the request,
+	closes its end of the TCP connection (indicates it has stopped sending),
+	receives data from the server until the server closes its connection as well,
+	and compares the hash of what it got from the server with resp_hash, failing the test if there is ever a mismatch.
+
+The server currently works as follows:
+	The pairs in the /outline response are ordered according to string order of the filenames in requests/ and responses/. This allows for real-looking traffic to be run first, to prevent it from being classified as "not HTTP" and not interfered with.
+	During the process of loading the requests and responses, substitutions are made. Right now all that happens is that "460cc7e83624a591e6c50f3a54d5936a0f95ad3c112ec729dbced74873cd" is replaced by the intended value of the Host: header in the request, i.e. the server host and port (which is hardcoded at present, anyway).
+	The server reads data either until the connection is closed or until a CRLFCRLF (or just LFLF) is sent, whichever happens first; then it checks if it matches one of the pairs or is a special request (such as for /outline). If the server waited for the client to close the connection before doing the check, real browsers and clients would time out, since they leave the socket open in anticipation they may send another request over it. But this limits the ability to send things in the request body - looking for Content-Length or similar might be too high-level. A solution I have considered is to, upon getting the CRLFCRL or LFLF, check whether what has sent so far matches one of the pairs, and if so continue to listen. Not leaving the socket open may altogether make it not look like HTTP.
