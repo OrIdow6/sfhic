@@ -143,11 +143,12 @@ def build_response():
 	
 	return resp
 
-req_dir = Path("requests")
-resp_dir = Path("responses")
-filename = Path(args.filename)
-with req_dir.joinpath(filename).open("wb") as f:
-	f.write(build_request())
+if __name__ == '__main__':
+	req_dir = Path("requests")
+	resp_dir = Path("responses")
+	filename = Path(args.filename)
+	with req_dir.joinpath(filename).open("wb") as f:
+		f.write(build_request())
 
-with resp_dir.joinpath(filename).open("wb") as f:
-	f.write(build_response())
+	with resp_dir.joinpath(filename).open("wb") as f:
+		f.write(build_response())
