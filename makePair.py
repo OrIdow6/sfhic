@@ -49,7 +49,8 @@ def build_request():
 		path = "/" + random_string(random.randint(10, 20))
 		# Add on some GET params too
 		if args.include_query:
-			path += "?" + "&".join((random_string(random.randint(5, 16)) + "=" + random_string(random.randint(5, 16)) for _ in range(random.randint(1, 4))))
+			rand_string_rand_range = lambda: random_string(random.randint(5, 16))
+			path += "?" + "&".join((rand_string_rand_range() + "=" + rand_string_rand_range() for _ in range(random.randint(1, 4))))
 			
 	req += f'GET {path} HTTP/1.1\r\n'.encode("utf-8")
 
@@ -125,7 +126,7 @@ def build_response():
 	
 	if args.response_header:
 		for header in args.response_header:
-			[k, v] = header.split(":")
+			k, v = header.split(":")
 			k = k.strip()
 			v = v.strip()
 			headers[k] = v
